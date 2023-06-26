@@ -1,17 +1,45 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {
+    createBrowserRouter,
+    RouterProvider
+} from "react-router-dom";
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AdminHomePage from "./pages/admin";
+import AdminMatchesPage from './pages/admin/matches';
+import AdminFetchPage from "./pages/admin/fetch-api";
+import Footer from "./components/footer";
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <App />
+    },
+    {
+        path: "/admin",
+        element: <AdminHomePage />
+    },
+    {
+        path: "/admin/matches",
+        element: <AdminMatchesPage />
+    },
+    {
+        path: "/admin/fetch-api",
+        element: <AdminFetchPage />
+    },
+])
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
+    <Footer />
   </React.StrictMode>
 );
 

@@ -1,22 +1,29 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import {Match} from "../../../types/Match";
 
 export type QueryMatchProps = {
-    matches: Match[],
+    matches: Match[] | undefined,
     offset: number,
 };
 
 function QueryMatch({matches, offset}: QueryMatchProps) {
-    const tbodyItem = matches.map((match: any, index: number) =>
-        <tr>
-            <th scope="row">{offset + index + 1}</th>
-            <td>{match.id}</td>
-            <td>{match.createdAt}</td>
-            <td>
-                <input className="form-check-input" type="checkbox"/>
-            </td>
-        </tr>
+    if (matches === undefined) {
+        return (
+            <></>
+        )
+    }
+
+    const tbodyItem: ReactElement[] = matches.map((match: any, index: number) =>
+            <tr>
+                <th scope="row">{offset + index + 1}</th>
+                <td>{match.id}</td>
+                <td>{match.createdAt}</td>
+                <td>
+                    <input className="form-check-input" type="checkbox"/>
+                </td>
+            </tr>
     );
+    
     return (
         <>
             <div className="row g-3">

@@ -6,6 +6,8 @@ import QueryMatch from "./QueryMatch";
 import {Match} from "../../../types/Match";
 import {fetchGetMatches} from "../../../api/matches";
 import {useSearchParams} from "react-router-dom";
+import Pagination from "../../../components/pagination";
+import {Page} from "../../../types/Page";
 
 
 function AdminMatchesPage() {
@@ -15,11 +17,10 @@ function AdminMatchesPage() {
     const sizeParam: string | null = searchParams.get('size');
     const size: number = sizeParam === null ? 20 : parseInt(sizeParam);
 
-    const [matches, setMatches] = useState<Match[]>([]);
-    const [total, setTotal] = useState<number>(0);
+    const [result, setResult] = useState<Page<Match>>();
 
     useEffect(() => {
-        fetchGetMatches(page, size, setMatches, setTotal);
+        fetchGetMatches(page, size, setResult);
     }, [page, size])
 
     return (
@@ -32,8 +33,9 @@ function AdminMatchesPage() {
                     </aside>
                     <div className="col-auto vstack gap-4">
                         <h1>매치 관리</h1>
-                        <QueryInfo size={total} />
-                        <QueryMatch matches={matches} offset={page * size} />
+                        <QueryInfo size={result?.totalElements} />
+                        <QueryMatch matches={result?.content} offset={page * size} />
+                        <Pagination page={result} />
                     </div>
                 </div>
             </div>

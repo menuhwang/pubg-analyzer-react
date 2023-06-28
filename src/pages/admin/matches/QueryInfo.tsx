@@ -1,10 +1,11 @@
 import React from "react";
 
 export type QueryInfoProps = {
-    size: number
+    size: number | undefined
 }
 
 function QueryInfo({size}: QueryInfoProps) {
+    if (size === undefined) size = 0;
     return (
         <div className="card">
             <div className="card-body">

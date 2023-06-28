@@ -7,8 +7,7 @@ import {Match} from "../types/Match";
 export function fetchGetMatches(
     page: number,
     size: number,
-    setMatches: (matches: Match[]) => void,
-    setTotal: (total: number) => void,
+    setResult: (data: Page<Match>) => void,
 ): void {
     useAxios.get(ENDPOINT.MATCHES, {
         params: {
@@ -16,8 +15,7 @@ export function fetchGetMatches(
             size
         }
     }).then(response => {
-        const data: ApiResponse<Page<Match>> = response?.data;
-        setMatches(data.result.content);
-        setTotal(data.result.totalElements);
+        const data : ApiResponse<Page<Match>> = response.data;
+        setResult(data.result);
     }).catch(e => console.log(e))
 }

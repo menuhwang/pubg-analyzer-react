@@ -1,15 +1,15 @@
 import React from "react";
 
 export type QueryInfoProps = {
-    count: number
+    size: number
 }
 
-function QueryInfo({count}: QueryInfoProps) {
+function QueryInfo({size}: QueryInfoProps) {
     return (
         <div className="card">
             <div className="card-body">
                 <span>매치 : </span>
-                <span>{count}</span>
+                <span>{size}</span>
                 <span> EA</span>
             </div>
         </div>

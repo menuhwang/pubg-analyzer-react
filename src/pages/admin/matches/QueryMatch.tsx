@@ -2,13 +2,14 @@ import React from "react";
 import {Match} from "../../../types/Match";
 
 export type QueryMatchProps = {
-    matches: Match[]
+    matches: Match[],
+    offset: number,
 };
 
-function QueryMatch({matches}: QueryMatchProps) {
+function QueryMatch({matches, offset}: QueryMatchProps) {
     const tbodyItem = matches.map((match: any, index: number) =>
         <tr>
-            <th scope="row">{index + 1}</th>
+            <th scope="row">{offset + index + 1}</th>
             <td>{match.id}</td>
             <td>{match.createdAt}</td>
             <td>

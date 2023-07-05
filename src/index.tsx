@@ -7,17 +7,18 @@ import {
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import App from './App';
+import '@fortawesome/fontawesome-free/css/all.min.css'
 import reportWebVitals from './reportWebVitals';
 import AdminHomePage from "./pages/admin";
 import AdminMatchesPage from './pages/admin/matches';
 import AdminFetchPage from "./pages/admin/fetch-api";
 import Footer from "./components/footer";
+import HomePage from "./pages/home";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App />
+        element: <HomePage />
     },
     {
         path: "/admin",

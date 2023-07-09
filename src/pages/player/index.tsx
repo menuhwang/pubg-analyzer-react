@@ -33,10 +33,8 @@ function PlayerPage() {
     const [summaryMemo, setSummaryMemo] = useState<boolean[]>(new Array<boolean>(20));
 
     useEffect(() => {
-        fetchSearchPlayer(nickname, page, size, setMatches)
-            .then(() => {
-                console.log(matches?.size);
-            });
+        initSummary();
+        fetchSearchPlayer(nickname, page, size, setMatches);
     }, [path])
 
     useEffect(() => {
@@ -77,7 +75,7 @@ function PlayerPage() {
         });
     }
 
-    const initSelect = () => {
+    const initSummary = () => {
         setSummaryMemo(new Array<boolean>(20));
         setSummary(DEFAULT_SUMMARY);
     }
@@ -95,7 +93,7 @@ function PlayerPage() {
                     </div>
                     {/*<!--sidebar:right-->*/}
                     <aside className="col-lg-2">
-                        <Calculator display={matches !== undefined && matches.size > 0} summary={summary} selectedInit={initSelect} />
+                        <Calculator display={matches !== undefined && matches.size > 0} summary={summary} selectedInit={initSummary} />
                     </aside>
                 </div>
             </div>

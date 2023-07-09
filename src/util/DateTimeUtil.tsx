@@ -1,13 +1,16 @@
 function parse(datetime: string): string {
     const date: Date = parseToUTC(datetime);
-
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+    const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+    const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    return `${date.getFullYear()}-${month}-${day} ${hours}:${minutes}`;
 }
 
 function parseToUTC(datetime: string): Date {
     const date: Date = new Date(datetime);
 
-    const utc = new Date(Date.UTC(
+    return new Date(Date.UTC(
         date.getFullYear(),
         date.getMonth(),
         date.getDate(),
@@ -16,10 +19,6 @@ function parseToUTC(datetime: string): Date {
         date.getSeconds(),
         date.getMilliseconds()
     ))
-
-    console.log(utc.toUTCString());
-
-    return utc;
 }
 
 function offset(datetime: string): string {

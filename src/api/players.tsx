@@ -10,12 +10,8 @@ export function fetchSearchPlayer(
     page: number,
     size: number,
     setResult: (data: Page<Participant> | undefined) => void
-): void {
-    if (nickname === undefined) {
-        alert('닉네임을 입력해주세요.');
-        return;
-    }
-    useAxios.get(ENDPOINT.PLAYERS + `/${nickname}`, {
+): Promise<void> {
+    return useAxios.get(ENDPOINT.PLAYERS + `/${nickname}`, {
         params: {
             page,
             size

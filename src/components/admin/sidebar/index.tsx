@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 type SidebarItem = {
     name: string,
@@ -24,7 +25,7 @@ export const items: SidebarItem[] = [
     },
 ]
 
-const navLink = items.map(item => <a key={'sidebar-item-' + item.name} className="nav-link" href={item.href}>{item.text}</a>);
+const navLink = items.map(item => <Link key={'sidebar-item-' + item.name} className="nav-link" to={item.href}>{item.text}</Link>);
 
 function Sidebar() {
     return (

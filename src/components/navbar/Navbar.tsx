@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 export type NavbarProps = {
     href: string,
@@ -9,9 +10,9 @@ function Navbar(props: NavbarProps) {
     return (
         <nav className="navbar bg-secondary">
             <div className="container-fluid">
-                <a className="pa-logo navbar-brand text-warning fw-bold" href={props.href}>
+                <Link className="pa-logo navbar-brand text-warning fw-bold" to={props.href}>
                     {props.text}
-                </a>
+                </Link>
             </div>
         </nav>
     )

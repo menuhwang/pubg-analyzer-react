@@ -1,6 +1,7 @@
 import React, {ReactElement} from "react";
 import {BookmarkWrapper} from "../../types/BookmarkWrapper";
 import BookmarkUtil from "../../util/BookmarkUtil";
+import {Link} from "react-router-dom";
 
 function BookmarkTable() {
     let bookmarkWrapper: BookmarkWrapper | null = BookmarkUtil.get();
@@ -12,8 +13,8 @@ function BookmarkTable() {
         const bookmarkObj = bookmarkWrapper.data;
         listItem = bookmarkObj.map(bookmark =>
             <li className="list-group-item" key={bookmark.nickname}>
-                <a className="text-black"
-                   href={'/matches/' + bookmark.nickname}>{bookmark.nickname}</a>
+                <Link className="text-black"
+                   to={'/player/' + bookmark.nickname}>{bookmark.nickname}</Link>
             </li>
         )
     }

@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import NavbarProvider from "../../components/navbar/NavbarProvider";
 import BookmarkTable from "./BookmarkTable";
+import {useNavigate} from "react-router-dom";
 
 function HomePage() {
+    const navigator = useNavigate();
     const [nickname, setNickname] = useState('');
 
-    const searchBtnOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        window.location.href = `/matches/${nickname}`;
+    const searchBtnOnClick = () => {
+        if (nickname === undefined || nickname.trim().length === 0) {
+            alert('닉네임을 입력해주세요.');
+            return;
+        }
+        navigator(`/player/${nickname}`);
     }
 
     const nicknameInputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {

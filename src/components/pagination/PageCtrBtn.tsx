@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 export enum PageCtrBtnType {
     PREV = '<',
@@ -18,15 +19,15 @@ function PageCtrBtn({type, disable, page, size}: PageCtrBtnProps) {
             {
                 disable ?
                     <li className="page-item disabled">
-                        <a className="page-link">
+                        <Link className="page-link" to={""}>
                             <span aria-hidden="true">{type}</span>
-                        </a>
+                        </Link>
                     </li>
                     :
                     <li className="page-item">
-                        <a className="page-link" href={`?page=${page}&size=${size}`}>
+                        <Link className="page-link" to={`?page=${page}&size=${size}`}>
                             <span aria-hidden="true">{type}</span>
-                        </a>
+                        </Link>
                     </li>
             }
         </>

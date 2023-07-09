@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-    createBrowserRouter,
-    RouterProvider
-} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -14,34 +11,26 @@ import AdminMatchesPage from './pages/admin/matches';
 import AdminFetchPage from "./pages/admin/fetch-api";
 import Footer from "./components/footer";
 import HomePage from "./pages/home";
-
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <HomePage />
-    },
-    {
-        path: "/admin",
-        element: <AdminHomePage />
-    },
-    {
-        path: "/admin/matches",
-        element: <AdminMatchesPage />
-    },
-    {
-        path: "/admin/fetch-api",
-        element: <AdminFetchPage />
-    },
-])
+import PlayerPage from "./pages/player";
+import ScrollTop from "./components/util/ScrollTop";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-    <Footer />
-  </React.StrictMode>
+    <React.StrictMode>
+        <BrowserRouter>
+            <ScrollTop />
+            <Routes>
+                <Route path={"/"} element={<HomePage />} />
+                <Route path={"/player/:nickname"} element={<PlayerPage />} />
+                <Route path={"/admin"} element={<AdminHomePage />} />
+                <Route path={"/admin/matches"} element={<AdminMatchesPage />} />
+                <Route path={"/admin/fetch-api"} element={<AdminFetchPage />} />
+            </Routes>
+        </BrowserRouter>
+        <Footer/>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

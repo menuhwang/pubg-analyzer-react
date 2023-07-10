@@ -1,4 +1,5 @@
 import React from "react";
+import BookmarkButton from "./BookmarkButton";
 
 type PlayerTagProps = {
     nickname: string | undefined,
@@ -17,9 +18,7 @@ function PlayerTag(props: PlayerTagProps) {
                         <span className="spinner-border spinner-border-sm" role="status"
                               style={{display: props.loading ? "inline-flex" : "none"}}></span>
                     </button>
-                    <button className="btn btn-warning d-flex align-items-center">
-                        <i className="fa-solid fa-bookmark"></i>
-                    </button>
+                    <BookmarkButton nickname={props.nickname!} />
                 </div>
             </div>
         </div>

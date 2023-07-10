@@ -13,6 +13,8 @@ import Footer from "./components/footer";
 import HomePage from "./pages/home";
 import PlayerPage from "./pages/player";
 import ScrollTop from "./components/util/ScrollTop";
+import BookmarkContext from "./contexts/BookmarkContext";
+import BookmarkUtil from "./util/BookmarkUtil";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -21,13 +23,15 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <ScrollTop />
-            <Routes>
-                <Route path={"/"} element={<HomePage />} />
-                <Route path={"/player/:nickname"} element={<PlayerPage />} />
-                <Route path={"/admin"} element={<AdminHomePage />} />
-                <Route path={"/admin/matches"} element={<AdminMatchesPage />} />
-                <Route path={"/admin/fetch-api"} element={<AdminFetchPage />} />
-            </Routes>
+            <BookmarkContext.Provider value={BookmarkUtil.get()}>
+                <Routes>
+                    <Route path={"/"} element={<HomePage />} />
+                    <Route path={"/player/:nickname"} element={<PlayerPage />} />
+                    <Route path={"/admin"} element={<AdminHomePage />} />
+                    <Route path={"/admin/matches"} element={<AdminMatchesPage />} />
+                    <Route path={"/admin/fetch-api"} element={<AdminFetchPage />} />
+                </Routes>
+            </BookmarkContext.Provider>
         </BrowserRouter>
         <Footer/>
     </React.StrictMode>

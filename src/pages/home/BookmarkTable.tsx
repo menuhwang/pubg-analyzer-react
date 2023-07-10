@@ -1,13 +1,12 @@
-import React, {ReactElement} from "react";
-import {BookmarkWrapper} from "../../types/BookmarkWrapper";
-import BookmarkUtil from "../../util/BookmarkUtil";
+import React, {ReactElement, useContext} from "react";
+import BookmarkWrapper from "../../types/BookmarkWrapper";
 import {Link} from "react-router-dom";
+import BookmarkContext from "../../contexts/BookmarkContext";
 
 function BookmarkTable() {
-    let bookmarkWrapper: BookmarkWrapper | null = BookmarkUtil.get();
-
+    const bookmarkWrapper: BookmarkWrapper = useContext(BookmarkContext);
     let listItem: ReactElement[];
-    if (bookmarkWrapper == null || bookmarkWrapper.data == null || bookmarkWrapper.data.length === 0) {
+    if (bookmarkWrapper.isEmpty()) {
         listItem = [<li className="list-group-item" key={'bookmark-empty'}>플레이어 검색 후 북마크를 등록해주세요!</li>];
     } else {
         const bookmarkObj = bookmarkWrapper.data;

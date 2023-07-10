@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import CalculatorItem from "./CalculatorItem";
 
 interface CalculatorProps {
@@ -15,9 +15,6 @@ export type Summary = {
 }
 
 function Calculator(props: CalculatorProps) {
-    useEffect(() => {
-        console.log('render calculator');
-    })
     if (!props.display) return null;
     return (
         <div className="card sticky-md-top top-50 translate-middle-y mb-4 mb-md-0" id="matches-result-calc">

@@ -39,7 +39,6 @@ function PlayerPage() {
 
     useEffect(() => {
         setSummary(summary);
-        console.log(summary)
     }, [summary])
 
     const updateMatchHistory = () => {
@@ -50,19 +49,16 @@ function PlayerPage() {
     }
 
     const summaryMatch = (index: number) => {
-        console.log('click match card');
         const updateSummary: Summary = {
             ...summary
         };
         if (summaryMemo[index]) {
-            console.log(`remove [${index}]`);
             summaryMemo[index] = false;
             updateSummary.matches--;
             updateSummary.kills -= matches!.content[index].stat.kills;
             updateSummary.assists -= matches!.content[index].stat.assists;
             updateSummary.damageDealt -= matches!.content[index].stat.damageDealt;
         } else {
-            console.log(`push [${index}]`);
             summaryMemo[index] = true;
             updateSummary.matches++;
             updateSummary.kills += matches!.content[index].stat.kills;

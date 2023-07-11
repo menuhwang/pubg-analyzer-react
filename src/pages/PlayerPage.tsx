@@ -26,13 +26,17 @@ function PlayerPage() {
     const size: number = sizeParam === null ? 20 : parseInt(sizeParam);
 
     const [matches, setMatches] = useState<Page<Participant>>();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const [summary, setSummary] = useState<Summary>(DEFAULT_SUMMARY);
     const [summaryMemo, setSummaryMemo] = useState<boolean[]>(new Array<boolean>(20));
 
     useEffect(() => {
         initSummary();
-        fetchSearchPlayer(nickname, page, size, setMatches);
+        setLoading(true);
+        fetchSearchPlayer(nickname, page, size, setMatches)
+            .then(() => setLoading(false))
+            .catch(() => setLoading(false));
     }, [path])
 
     useEffect(() => {
@@ -81,7 +85,7 @@ function PlayerPage() {
                     <aside className="col-lg-2"></aside>
                     <div className="col-md-8 col-lg-6 vstack gap-4">
                         <PlayerTagContainer nickname={nickname} />
-                        <MatchesTableContainer player={nickname} matches={matches} itemClickHandler={summaryMatch} selected={summaryMemo}/>
+                        <MatchesTableContainer loading={loading} player={nickname} matches={matches} itemClickHandler={summaryMatch} selected={summaryMemo}/>
                     </div>
                     {/*<!--sidebar:right-->*/}
                     <aside className="col-lg-2">

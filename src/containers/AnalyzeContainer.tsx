@@ -1,9 +1,9 @@
 import React from "react";
-import KillDamage from "./KillDamage";
-import TotalDamage from "./TotalDamage";
-import PhaseDamageChart from "./PhaseDamageChart";
-import ContributeDamageChart from "./ContributeDamageChart";
-import {Analyze} from "../../types/Analyze";
+import KillDamage from "../components/KillDamage";
+import TotalDamage from "../components/TotalDamage";
+import PhaseDamageChart from "../components/PhaseDamageChart";
+import ContributeDamageChart from "../components/ContributeDamageChart";
+import {Analyze} from "../types/Analyze";
 
 type AnalyzeProps = {
     matchCreatedAt: string

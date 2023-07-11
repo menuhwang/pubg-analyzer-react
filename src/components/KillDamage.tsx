@@ -1,7 +1,7 @@
 import React from "react";
 import KillDamageLogTable from "./KillDamageLogTable";
 import KillDamageDealt from "./KillDamageDealt";
-import {KillLog} from "../../types/KillLog";
+import {KillLog} from "../types/KillLog";
 import {Accordion} from "react-bootstrap";
 
 type KillDamageProps = {

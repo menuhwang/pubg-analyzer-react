@@ -1,6 +1,6 @@
 import React from "react";
 import TotalDamageLogTable from "./TotalDamageLogTable";
-import {DamageLog} from "../../types/DamageLog";
+import {DamageLog} from "../types/DamageLog";
 
 type TotalDamageProps = {
     matchCreatedAt: string

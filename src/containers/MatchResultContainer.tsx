@@ -1,5 +1,5 @@
 import React from "react";
-import {MatchResult} from "../../types/MatchResult";
+import {MatchResult} from "../types/MatchResult";
 
 type MatchResultProps = {
     matchResult: MatchResult

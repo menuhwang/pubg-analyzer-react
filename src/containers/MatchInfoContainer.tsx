@@ -1,6 +1,6 @@
 import React from "react";
-import {MatchInfo} from "../../types/MatchInfo";
-import DateTimeUtil from "../../util/DateTimeUtil";
+import {MatchInfo} from "../types/MatchInfo";
+import DateTimeUtil from "../util/DateTimeUtil";
 
 type MatchInfoProps = {
     matchInfo: MatchInfo

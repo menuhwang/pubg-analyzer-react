@@ -15,7 +15,7 @@ import PlayerPage from "./pages/PlayerPage";
 import ScrollTop from "./components/util/ScrollTop";
 import BookmarkContext from "./contexts/BookmarkContext";
 import BookmarkUtil from "./util/BookmarkUtil";
-import ReportPage from "./pages/report";
+import ReportPage from "./pages/ReportPage";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

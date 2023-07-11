@@ -1,6 +1,6 @@
 import React from "react";
-import {DamageLog} from "../../types/DamageLog";
-import DateTimeUtil from "../../util/DateTimeUtil";
+import {DamageLog} from "../types/DamageLog";
+import DateTimeUtil from "../util/DateTimeUtil";
 
 type KillDamageLogTableProps = {
     matchCreatedAt: string

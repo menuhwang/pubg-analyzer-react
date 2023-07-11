@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
-import NavbarProvider from "../../components/navbar/NavbarProvider";
+import NavbarProvider from "../components/navbar/NavbarProvider";
 import {Link, useLocation, useParams} from "react-router-dom";
-import MemberSelect from "./MemberSelect";
-import MatchInfoContainer from "./MatchInfoContainer";
-import MatchResultContainer from "./MatchResultContainer";
-import KillList from "./KillList";
-import AnalyzeContainer from "./AnalyzeContainer";
-import {Report} from "../../types/Report";
-import {fetchGetMatchReport} from "../../api/report";
-import './style.css';
+import MemberSelect from "../components/MemberSelect";
+import MatchInfoContainer from "../containers/MatchInfoContainer";
+import MatchResultContainer from "../containers/MatchResultContainer";
+import KillListContainer from "../containers/KillListContainer";
+import AnalyzeContainer from "../containers/AnalyzeContainer";
+import {Report} from "../types/Report";
+import {fetchGetMatchReport} from "../api/report";
+import './ReportPage.css';
 
 function ReportPage() {
     const path = useLocation();
@@ -57,7 +57,7 @@ function ReportPage() {
                                 {/*!-- 킬 목록 --*/}
                                 <div className="row">
                                     <div className="col">
-                                        <KillList matchCreatedAt={report!.matchInfo.createdAt} killLog={report!.data.killLog} player={report!.data.player} bot={report!.data.bot} />
+                                        <KillListContainer matchCreatedAt={report!.matchInfo.createdAt} killLog={report!.data.killLog} player={report!.data.player} bot={report!.data.bot} />
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 import React from "react";
-import {KillLog} from "../../types/KillLog";
-import DateTimeUtil from "../../util/DateTimeUtil";
+import {KillLog} from "../types/KillLog";
+import DateTimeUtil from "../util/DateTimeUtil";
 
 type KillDetailTableProps = {
     matchCreatedAt: string

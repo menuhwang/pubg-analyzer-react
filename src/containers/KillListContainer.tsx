@@ -1,7 +1,7 @@
 import React from "react";
-import KillInfoTable from "./KillInfoTable";
-import KillDetailTable from "./KillDetailTable";
-import {KillLog} from "../../types/KillLog";
+import KillInfoTable from "../components/KillInfoTable";
+import KillDetailTable from "../components/KillDetailTable";
+import {KillLog} from "../types/KillLog";
 
 type KillListProps = {
     matchCreatedAt: string
@@ -10,7 +10,7 @@ type KillListProps = {
     bot: number
 }
 
-function KillList(props: KillListProps) {
+function KillListContainer(props: KillListProps) {
     return (
         <div className="card">
             <div className="card-header pt-4">
@@ -24,4 +24,4 @@ function KillList(props: KillListProps) {
     )
 }
 
-export default KillList;
+export default KillListContainer;

@@ -1,9 +1,9 @@
 import React, {ReactElement, useContext} from "react";
-import BookmarkWrapper from "../../types/BookmarkWrapper";
+import BookmarkWrapper from "../types/BookmarkWrapper";
 import {Link} from "react-router-dom";
-import BookmarkContext from "../../contexts/BookmarkContext";
+import BookmarkContext from "../contexts/BookmarkContext";
 
-function BookmarkTable() {
+function BookmarkContainer() {
     const bookmarkWrapper: BookmarkWrapper = useContext(BookmarkContext);
     let listItem: ReactElement[];
     if (bookmarkWrapper.isEmpty()) {
@@ -32,4 +32,4 @@ function BookmarkTable() {
     )
 }
 
-export default BookmarkTable;
+export default BookmarkContainer;

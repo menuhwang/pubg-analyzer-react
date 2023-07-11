@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import NavbarProvider from "../../components/navbar/NavbarProvider";
-import BookmarkTable from "./BookmarkTable";
+import NavbarProvider from "../components/navbar/NavbarProvider";
+import BookmarkContainer from "../containers/BookmarkContainer";
 import {useNavigate} from "react-router-dom";
 
 function HomePage() {
@@ -36,7 +36,7 @@ function HomePage() {
                             </button>
                         </div>
                     </div>
-                    <BookmarkTable />
+                    <BookmarkContainer />
                 </div>
             </div>
         </>

@@ -10,7 +10,7 @@ import AdminHomePage from "./pages/admin";
 import AdminMatchesPage from './pages/admin/matches';
 import AdminFetchPage from "./pages/admin/fetch-api";
 import Footer from "./components/footer";
-import HomePage from "./pages/home";
+import HomePage from "./pages/HomePage";
 import PlayerPage from "./pages/player";
 import ScrollTop from "./components/util/ScrollTop";
 import BookmarkContext from "./contexts/BookmarkContext";

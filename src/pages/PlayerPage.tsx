@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import NavbarProvider from "../../components/navbar/NavbarProvider";
-import PlayerTag from "./PlayerTag";
-import {fetchSearchPlayer, fetchUpdateMatchHistory} from "../../api/players";
-import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {Page} from "../../types/Page";
-import {Participant} from "../../types/Participant";
-import MatchesTable from "./matchTable/MatchesTable";
-import './style.css';
-import Calculator, {Summary} from "./calculator/Calculator";
+import NavbarProvider from "../components/navbar/NavbarProvider";
+import PlayerTagContainer from "../containers/PlayerTagContainer";
+import {fetchSearchPlayer} from "../api/players";
+import {useLocation, useParams, useSearchParams} from "react-router-dom";
+import {Page} from "../types/Page";
+import {Participant} from "../types/Participant";
+import MatchesTableContainer from "../containers/MatchesTableContainer";
+import './PlayerPage.css';
+import Calculator, {Summary} from "../components/Calculator";
 
 const DEFAULT_SUMMARY: Summary = {
     matches: 0,
@@ -18,7 +18,6 @@ const DEFAULT_SUMMARY: Summary = {
 
 function PlayerPage() {
     const path = useLocation();
-    const navigator = useNavigate();
     const {nickname} = useParams<string>();
     const [searchParams] = useSearchParams();
     const pageParam: string | null = searchParams.get('page');
@@ -27,7 +26,6 @@ function PlayerPage() {
     const size: number = sizeParam === null ? 20 : parseInt(sizeParam);
 
     const [matches, setMatches] = useState<Page<Participant>>();
-    const [updateMatchStatus, setUpdateMatchStatus] = useState<boolean>(false);
 
     const [summary, setSummary] = useState<Summary>(DEFAULT_SUMMARY);
     const [summaryMemo, setSummaryMemo] = useState<boolean[]>(new Array<boolean>(20));
@@ -41,12 +39,6 @@ function PlayerPage() {
         setSummary(summary);
     }, [summary])
 
-    const updateMatchHistory = () => {
-        setUpdateMatchStatus(true);
-        fetchUpdateMatchHistory(nickname, () => navigator(`/player/${nickname}`))
-            .then(() => setUpdateMatchStatus(false))
-            .catch(() => setUpdateMatchStatus(false));
-    }
 
     const summaryMatch = (index: number) => {
         const updateSummary: Summary = {
@@ -71,6 +63,10 @@ function PlayerPage() {
         });
     }
 
+    const isMatchesEmpty: () => boolean = () => {
+        return matches === undefined || matches.size === 0;
+    }
+
     const initSummary = () => {
         setSummaryMemo(new Array<boolean>(20));
         setSummary(DEFAULT_SUMMARY);
@@ -84,12 +80,12 @@ function PlayerPage() {
                     {/*<!--sidebar:left-->*/}
                     <aside className="col-lg-2"></aside>
                     <div className="col-md-8 col-lg-6 vstack gap-4">
-                        <PlayerTag nickname={nickname} loading={updateMatchStatus} updateBtnHandler={() => updateMatchHistory()}/>
-                        <MatchesTable player={nickname} matches={matches} itemClickHandler={summaryMatch} selected={summaryMemo}/>
+                        <PlayerTagContainer nickname={nickname} />
+                        <MatchesTableContainer player={nickname} matches={matches} itemClickHandler={summaryMatch} selected={summaryMemo}/>
                     </div>
                     {/*<!--sidebar:right-->*/}
                     <aside className="col-lg-2">
-                        <Calculator display={matches !== undefined && matches.size > 0} summary={summary} selectedInit={initSummary} />
+                        <Calculator display={!isMatchesEmpty()} summary={summary} selectedInit={initSummary} />
                     </aside>
                 </div>
             </div>

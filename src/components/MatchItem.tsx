@@ -1,7 +1,7 @@
 import React from "react";
-import {Participant} from "../../../types/Participant";
+import {Participant} from "../types/Participant";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
-import DateTimeUtil from "../../../util/DateTimeUtil";
+import DateTimeUtil from "../util/DateTimeUtil";
 
 interface MatchItemProps extends Participant {
     player: string,

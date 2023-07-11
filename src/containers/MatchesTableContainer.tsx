@@ -1,15 +1,15 @@
 import React from "react";
-import {SearchPlayer} from "../../../types/SearchPlayer";
-import MatchItemEmpty from "./MatchItemEmpty";
-import MatchItem from "./MatchItem";
-import Pagination from "../../../components/pagination";
+import {SearchPlayer} from "../types/SearchPlayer";
+import MatchItemEmpty from "../components/MatchItemEmpty";
+import MatchItem from "../components/MatchItem";
+import Pagination from "../components/pagination";
 
 interface MatchesTableProps extends SearchPlayer {
     itemClickHandler: (index: number) => void,
     selected: boolean[]
 }
 
-function MatchesTable(props: MatchesTableProps) {
+function MatchesTableContainer(props: MatchesTableProps) {
     if (props.player === undefined || props.matches === undefined) return null;
 
     if (props.matches.size === 0) return (<MatchItemEmpty/>);
@@ -27,4 +27,4 @@ function MatchesTable(props: MatchesTableProps) {
     )
 }
 
-export default MatchesTable;
+export default MatchesTableContainer;

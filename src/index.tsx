@@ -11,7 +11,7 @@ import AdminMatchesPage from './pages/admin/matches';
 import AdminFetchPage from "./pages/admin/fetch-api";
 import Footer from "./components/footer";
 import HomePage from "./pages/HomePage";
-import PlayerPage from "./pages/player";
+import PlayerPage from "./pages/PlayerPage";
 import ScrollTop from "./components/util/ScrollTop";
 import BookmarkContext from "./contexts/BookmarkContext";
 import BookmarkUtil from "./util/BookmarkUtil";

@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
-import BookmarkWrapper from "../../types/BookmarkWrapper";
-import BookmarkContext from "../../contexts/BookmarkContext";
-import BookmarkUtil from "../../util/BookmarkUtil";
+import BookmarkWrapper from "../types/BookmarkWrapper";
+import BookmarkContext from "../contexts/BookmarkContext";
+import BookmarkUtil from "../util/BookmarkUtil";
 
 type BookmarkButtonProps = {
     nickname: string,

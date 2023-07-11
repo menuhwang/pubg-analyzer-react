@@ -36,9 +36,21 @@ function offset(datetime: string): string {
     return '오래 전';
 }
 
+function offsetToMinSec(datetime1: string, datetime2: string): string {
+    const timestamp1 = parseToUTC(datetime1).getTime();
+    const timestamp2 = parseToUTC(datetime2).getTime();
+
+    let offset = timestamp2 - timestamp1;
+
+    offset /= 1000;
+
+    return `${(offset / 60).toFixed()}:${offset % 60 < 10 ? `0${(offset % 60).toFixed()}` : (offset % 60).toFixed()}`;
+}
+
 const DateTimeUtil = {
     parse,
-    offset
+    offset,
+    offsetToMinSec
 }
 
 export default DateTimeUtil;

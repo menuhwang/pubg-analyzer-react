@@ -14,6 +14,14 @@ function MatchItem(props: MatchItemProps) {
         window.location.href = '/report/match/' + props.match.id + '/player/' + props.player;
     }
 
+    const isDisableReportBtn: () => boolean = () => {
+        const matchType: string = props.match.matchType.eng;
+        return matchType !== 'official'
+            && matchType !== 'competitive'
+            && matchType !== 'seasonal'
+            && matchType !== 'AI mode';
+    }
+
     return (
         <div className="card mt-3 position-relative pa-stat" onClick={props.onClickHandler} data-selected-status={props.selected}>
             <div className="card-body" key={props.match.id}>
@@ -35,10 +43,10 @@ function MatchItem(props: MatchItemProps) {
                     <div className="col-md">
                         <div className="row mb-3 mb-md-0">
                             <div className="col-auto col-md-12">
-                                <div>{props.match.map.mapNameKor}</div>
+                                <div>{props.match.map.kor}</div>
                             </div>
                             <div className="col-auto ms-auto col-md-12 ms-md-0">
-                                <div>{props.match.mode.title}</div>
+                                <div>{props.match.mode.kor}</div>
                             </div>
                         </div>
                     </div>
@@ -83,7 +91,7 @@ function MatchItem(props: MatchItemProps) {
                         </div>
                     </div>
                     <div className="ms-auto col-auto">
-                        <button className="btn btn-primary my-auto pa-analyze-btn" onClick={reportBtnOnClick}>
+                        <button className="btn btn-primary my-auto pa-analyze-btn" onClick={reportBtnOnClick} disabled={isDisableReportBtn()}>
                             <i className="fa-solid fa-arrow-right"></i>
                             <span className="spinner-border spinner-border-sm" role="status" style={{display: "none"}}></span>
                         </button>

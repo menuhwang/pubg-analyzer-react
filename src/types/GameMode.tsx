@@ -1,5 +1,5 @@
 export type GameMode = {
     key: string,
-    tag: string,
-    title: string
+    eng: string,
+    kor: string
 }

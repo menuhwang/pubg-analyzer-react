@@ -1,5 +1,5 @@
 export type DamageReason = {
     key: string
-    label: string
+    eng: string
     kor: string
 }

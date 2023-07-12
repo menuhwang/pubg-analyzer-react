@@ -14,9 +14,10 @@ interface MatchesTableProps extends SearchPlayer {
 function MatchesTableContainer(props: MatchesTableProps) {
     if (props.loading) return <MatchItemPlaceHolder />
 
-    if (props.player === undefined || props.matches === undefined) return null;
+    if (props.player === undefined) return null;
 
-    if (props.matches.size === 0) return (<MatchItemEmpty/>);
+    if (props.matches === undefined || props.matches.content.length === 0) return (<MatchItemEmpty/>);
+
     return (
         <div id="stats">
             {props.matches.content.map((participant, index) =>

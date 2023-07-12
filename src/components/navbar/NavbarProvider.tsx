@@ -1,15 +1,16 @@
 import React from "react";
 import {NavbarProps} from "./Navbar";
 import Navbar from "./Navbar";
+import {Application} from "../../constants/application";
 
 export const common : NavbarProps = {
     href: "/",
-    text: "PUBG Analyzer"
+    text: Application.brand
 }
 
 export const admin : NavbarProps = {
     href: "/admin",
-    text: "PUBG Analyzer Admin"
+    text: `${Application.brand} Admin`
 }
 
 export type NavbarProviderProps = {

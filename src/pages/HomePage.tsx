@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import NavbarProvider from "../components/navbar/NavbarProvider";
 import BookmarkContainer from "../containers/BookmarkContainer";
 import {useNavigate} from "react-router-dom";
+import {Application} from "../constants/application";
 
 function HomePage() {
     const navigator = useNavigate();
@@ -24,7 +25,7 @@ function HomePage() {
             <NavbarProvider isAdmin={false} />
             <div className="container vh-100 d-flex">
                 <div className="vstack gap-3 my-auto">
-                    <h1 className="text-center pa-logo">PUBG Analyzer</h1>
+                    <h1 className="text-center pa-logo">{Application.brand}</h1>
                     <div id="pa-search-player-form" className="row justify-content-center">
                         <div className="col">
                             <input type="text" name="nickname" className="form-control" id="input-nickname"

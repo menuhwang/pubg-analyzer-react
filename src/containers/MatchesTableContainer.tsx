@@ -3,7 +3,7 @@ import {SearchPlayer} from "../types/SearchPlayer";
 import MatchItemEmpty from "../components/MatchItemEmpty";
 import MatchItem from "../components/MatchItem";
 import Pagination from "../components/pagination";
-import MatchItemPlaceHolder from "../components/MatchItemPlaceHolder";
+import MatchItemPlaceHolder from "../components/placeholder/MatchItemPlaceHolder";
 
 interface MatchesTableProps extends SearchPlayer {
     itemClickHandler: (index: number) => void

@@ -7,7 +7,7 @@ import KillListContainer from "./KillListContainer";
 import AnalyzeContainer from "./AnalyzeContainer";
 import {Report} from "../types/Report";
 import {fetchGetMatchReport} from "../api/report";
-import ReportContainerPlaceHolder from "../components/ReportContainerPlaceHolder";
+import ReportContainerPlaceHolder from "../components/placeholder/ReportContainerPlaceHolder";
 
 function ReportContainer() {
     const path = useLocation();

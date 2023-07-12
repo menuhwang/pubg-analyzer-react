@@ -68,7 +68,7 @@ function PlayerPage() {
     }
 
     const isMatchesEmpty: () => boolean = () => {
-        return matches === undefined || matches.size === 0;
+        return matches === undefined || matches.content.length === 0;
     }
 
     const initSummary = () => {

@@ -5,7 +5,7 @@ import {
     BarElement,
     Title,
     Tooltip,
-    Legend, Interaction,
+    Legend,
 } from 'chart.js';
 import {Chart as ChartJS} from 'chart.js/auto';
 import {Bar} from 'react-chartjs-2';
@@ -21,22 +21,27 @@ ChartJS.register(
 
 type ContributeDamageChartProps = {
     datasets: {
-        "data": number[]
-        "label": string
+        data: number[]
+        label: string
     }[]
     labels: string[]
 }
 
 const options = {
-    dataset: {
-        barPercentage: .5,
-        categoryPercentage: .5,
-        borderRadius: Number.MAX_VALUE,
-
-        interaction: {
-            intersect: false,
-            mode: Interaction.modes.index,
+    datasets: {
+        bar: {
+            barPercentage: 0.5,
+            categoryPercentage: 0.5,
+        }
+    },
+    elements: {
+        bar: {
+            borderRadius: Number.MAX_VALUE,
         },
+    },
+    interaction: {
+        mode: "index" as const,
+        intersect: false,
     },
     plugins: {
         legend: {

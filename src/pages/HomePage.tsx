@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NavbarProvider from "../components/navbar/NavbarProvider";
 import BookmarkContainer from "../containers/BookmarkContainer";
 import {useNavigate} from "react-router-dom";
@@ -7,6 +7,10 @@ import {Application} from "../constants/application";
 function HomePage() {
     const navigator = useNavigate();
     const [nickname, setNickname] = useState('');
+
+    useEffect(() => {
+        document.title = `${Application.brand} - HOME`;
+    }, [])
 
     const searchBtnOnClick = () => {
         if (nickname === undefined || nickname.trim().length === 0) {

@@ -8,6 +8,7 @@ import {Participant} from "../types/Participant";
 import MatchesTableContainer from "../containers/MatchesTableContainer";
 import './PlayerPage.css';
 import Calculator, {Summary} from "../components/Calculator";
+import {Application} from "../constants/application";
 
 const DEFAULT_SUMMARY: Summary = {
     matches: 0,
@@ -32,6 +33,7 @@ function PlayerPage() {
     const [summaryMemo, setSummaryMemo] = useState<boolean[]>(new Array<boolean>(20));
 
     useEffect(() => {
+        document.title = `${Application.brand} - ${nickname}`;
         initSummary();
         setLoading(true);
         fetchSearchPlayer(nickname, page, size, setMatches)

@@ -28,11 +28,11 @@ function offset(datetime: string): string {
     offset /= 1000; // 초
     if (offset < 60) return '방금 전'; // 1분 미만
     offset /= 60; // 분
-    if (offset < 60) return offset.toFixed() + '분 전'; // 1시간 미만
+    if (offset < 60) return Math.floor(offset) + '분 전'; // 1시간 미만
     offset /= 60; // 시
-    if (offset < 24) return offset.toFixed() + '시간 전'; // 1일 미만
+    if (offset < 24) return Math.floor(offset) + '시간 전'; // 1일 미만
     offset /= 24; // 일
-    if (offset < 15) return offset.toFixed() + '일 전'; // 15일 미만
+    if (offset < 15) return Math.round(offset) + '일 전'; // 15일 미만
     return '오래 전';
 }
 
@@ -44,7 +44,7 @@ function offsetToMinSec(datetime1: string, datetime2: string): string {
 
     offset /= 1000;
 
-    return `${(offset / 60).toFixed()}:${offset % 60 < 10 ? `0${(offset % 60).toFixed()}` : (offset % 60).toFixed()}`;
+    return `${Math.floor(offset / 60)}:${offset % 60 < 10 ? `0${Math.floor(offset % 60)}` : Math.floor(offset % 60)}`;
 }
 
 const DateTimeUtil = {

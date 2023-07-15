@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import logo from "../../logo.png";
 
 export type NavbarProps = {
     href: string,
@@ -11,7 +12,7 @@ function Navbar(props: NavbarProps) {
         <nav className="navbar bg-secondary">
             <div className="container-fluid">
                 <Link className="pa-logo navbar-brand text-warning fw-bold" to={props.href}>
-                    <img className="me-1 align-text-bottom" src={process.env.PUBLIC_URL + 'logo192.png'} height={24} alt="Logo"/>
+                    <img className="me-1 align-text-bottom" src={logo} height={24} alt="Logo"/>
                     {props.text}
                 </Link>
             </div>

@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import NavbarProvider from "../components/navbar/NavbarProvider";
 import './ReportPage.css';
 import ReportContainer from "../containers/ReportContainer";
 import {Application} from "../constants/application";
@@ -10,10 +9,7 @@ function ReportPage() {
     }, [])
 
     return (
-        <>
-            <NavbarProvider isAdmin={false} />
-            <ReportContainer />
-        </>
+        <ReportContainer />
     )
 }
 

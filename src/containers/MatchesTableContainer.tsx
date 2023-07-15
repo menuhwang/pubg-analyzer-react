@@ -2,7 +2,7 @@ import React from "react";
 import {SearchPlayer} from "../types/SearchPlayer";
 import MatchItemEmpty from "../components/MatchItemEmpty";
 import MatchItem from "../components/MatchItem";
-import Pagination from "../components/pagination";
+import Pagination from "../components/pagination/Pagination";
 import MatchItemPlaceHolder from "../components/placeholder/MatchItemPlaceHolder";
 
 interface MatchesTableProps extends SearchPlayer {

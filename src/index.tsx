@@ -6,9 +6,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import reportWebVitals from './reportWebVitals';
-import AdminHomePage from "./pages/admin";
-import AdminMatchesPage from './pages/admin/matches';
-import AdminFetchPage from "./pages/admin/fetch-api";
 import Footer from "./components/footer";
 import HomePage from "./pages/HomePage";
 import PlayerPage from "./pages/PlayerPage";
@@ -16,6 +13,8 @@ import ScrollTop from "./components/util/ScrollTop";
 import BookmarkContext from "./contexts/BookmarkContext";
 import BookmarkUtil from "./util/BookmarkUtil";
 import ReportPage from "./pages/ReportPage";
+import Navbar from "./components/navbar/Navbar";
+import {Application} from "./constants/application";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -24,14 +23,12 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <ScrollTop />
+            <Navbar href="/" text={Application.brand} />
             <BookmarkContext.Provider value={BookmarkUtil.get()}>
                 <Routes>
                     <Route path={"/"} element={<HomePage />} />
                     <Route path={"/player/:nickname"} element={<PlayerPage />} />
                     <Route path={"/report/match/:matchId/player/:nickname"} element={<ReportPage />} />
-                    <Route path={"/admin"} element={<AdminHomePage />} />
-                    <Route path={"/admin/matches"} element={<AdminMatchesPage />} />
-                    <Route path={"/admin/fetch-api"} element={<AdminFetchPage />} />
                 </Routes>
             </BookmarkContext.Provider>
         </BrowserRouter>

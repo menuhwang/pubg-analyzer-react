@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import NavbarProvider from "../components/navbar/NavbarProvider";
 import PlayerTagContainer from "../containers/PlayerTagContainer";
 import {fetchSearchPlayer} from "../api/players";
 import {useLocation, useParams, useSearchParams} from "react-router-dom";
@@ -79,23 +78,21 @@ function PlayerPage() {
     }
 
     return (
-        <>
-            <NavbarProvider isAdmin={false} />
-            <div className="pa-player-page min-vh-100 container-fluid py-md-5">
-                <div className="row g-4">
-                    {/*<!--sidebar:left-->*/}
-                    <aside className="col-lg-2"></aside>
-                    <div className="col-md-8 col-lg-6 vstack gap-4">
-                        <PlayerTagContainer nickname={nickname} />
-                        <MatchesTableContainer loading={loading} player={nickname} matches={matches} itemClickHandler={summaryMatch} selected={summaryMemo}/>
-                    </div>
-                    {/*<!--sidebar:right-->*/}
-                    <aside className="col-lg-2">
-                        <Calculator display={!isMatchesEmpty()} summary={summary} selectedInit={initSummary} />
-                    </aside>
+        <div className="pa-player-page min-vh-100 container-fluid py-md-5">
+            <div className="row g-4">
+                {/*<!--sidebar:left-->*/}
+                <aside className="col-lg-2"></aside>
+                <div className="col-md-8 col-lg-6 vstack gap-4">
+                    <PlayerTagContainer nickname={nickname}/>
+                    <MatchesTableContainer loading={loading} player={nickname} matches={matches}
+                                           itemClickHandler={summaryMatch} selected={summaryMemo}/>
                 </div>
+                {/*<!--sidebar:right-->*/}
+                <aside className="col-lg-2">
+                    <Calculator display={!isMatchesEmpty()} summary={summary} selectedInit={initSummary}/>
+                </aside>
             </div>
-        </>
+        </div>
     )
 }
 

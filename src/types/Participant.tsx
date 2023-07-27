@@ -1,7 +1,8 @@
-import {MatchInfo} from "./MatchInfo";
-import {MatchResult} from "./MatchResult";
-
 export type Participant = {
-    match: MatchInfo,
-    stat: MatchResult
+    name: string
+    rank: number
+    kills: number
+    assists: number
+    damageDealt: number
+    revives: number
 }

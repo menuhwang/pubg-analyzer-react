@@ -20,8 +20,8 @@ function MatchesTableContainer(props: MatchesTableProps) {
 
     return (
         <div id="stats">
-            {props.matches.content.map((participant, index) =>
-                <MatchItem match={participant.match} stat={participant.stat} player={props.player!} selected={props.selected[index]}
+            {props.matches.content.map((matchStat, index) =>
+                <MatchItem match={matchStat.match} stats={matchStat.stats} player={props.player!} selected={props.selected[index]}
                            onClickHandler={() => {
                                props.itemClickHandler(index);
                            }}

@@ -5,8 +5,10 @@ import {MatchType} from "./MatchType";
 export type MatchInfo = {
     id: string,
     matchType: MatchType,
-    map: MapName,
-    mode: GameMode,
+    mapName: MapName,
+    gameMode: GameMode,
     createdAt: string,
     duration: number
+    isCustomMatch: boolean
+    rosters: number
 }

@@ -2,9 +2,12 @@ import React from "react";
 import {Participant} from "../types/Participant";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 import DateTimeUtil from "../util/DateTimeUtil";
+import {MatchInfo} from "../types/MatchInfo";
 
-interface MatchItemProps extends Participant {
-    player: string,
+interface MatchItemProps {
+    player: string
+    match: MatchInfo
+    stats: Participant
     selected: boolean
     onClickHandler: React.MouseEventHandler
 }
@@ -29,8 +32,8 @@ function MatchItem(props: MatchItemProps) {
                     <div className="col-12 col-md">
                         <div className="row">
                             <div className="col-auto col-md-12">
-                                <span className="align-bottom h3 fw-bold">{'#' + props.stat.rank}</span>
-                                <span className="align-bottom text-muted">{'/ ' + props.stat.rosters}</span>
+                                <span className="align-bottom h3 fw-bold">{'#' + props.stats.rank}</span>
+                                <span className="align-bottom text-muted">{'/ ' + props.match.rosters}</span>
                             </div>
                             <div className="col-auto ms-auto col-md-12 ms-md-0">
                                 <OverlayTrigger placement={"bottom"}
@@ -43,10 +46,10 @@ function MatchItem(props: MatchItemProps) {
                     <div className="col-md">
                         <div className="row mb-3 mb-md-0">
                             <div className="col-auto col-md-12">
-                                <div>{props.match.map.kor}</div>
+                                <div>{props.match.mapName.kor}</div>
                             </div>
                             <div className="col-auto ms-auto col-md-12 ms-md-0">
-                                <div>{props.match.mode.kor}</div>
+                                <div>{props.match.gameMode.kor}</div>
                             </div>
                         </div>
                     </div>
@@ -56,7 +59,7 @@ function MatchItem(props: MatchItemProps) {
                                 <div>킬</div>
                             </div>
                             <div className="col col-md-12">
-                                <div>{props.stat.kills}</div>
+                                <div>{props.stats.kills}</div>
                             </div>
                         </div>
                     </div>
@@ -66,7 +69,7 @@ function MatchItem(props: MatchItemProps) {
                                 <div>어시스트</div>
                             </div>
                             <div className="col col-md-12">
-                                <div>{props.stat.assists}</div>
+                                <div>{props.stats.assists}</div>
                             </div>
                         </div>
                     </div>
@@ -76,7 +79,7 @@ function MatchItem(props: MatchItemProps) {
                                 <div>데미지</div>
                             </div>
                             <div className="col col-md-12">
-                                <div>{props.stat.damageDealt.toFixed(2)}</div>
+                                <div>{props.stats.damageDealt.toFixed(2)}</div>
                             </div>
                         </div>
                     </div>
@@ -86,7 +89,7 @@ function MatchItem(props: MatchItemProps) {
                                 <div>부활</div>
                             </div>
                             <div className="col col-md-12">
-                                <div>{props.stat.revives}</div>
+                                <div>{props.stats.revives}</div>
                             </div>
                         </div>
                     </div>

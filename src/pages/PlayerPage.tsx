@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import PlayerTagContainer from "../containers/PlayerTagContainer";
-import {fetchSearchPlayer} from "../api/players";
 import {useLocation, useParams, useSearchParams} from "react-router-dom";
 import {Page} from "../types/Page";
-import {Participant} from "../types/Participant";
 import MatchesTableContainer from "../containers/MatchesTableContainer";
 import './PlayerPage.css';
 import Calculator, {Summary} from "../components/Calculator";
 import {Application} from "../constants/application";
+import {MatchStats} from "../types/MatchStats";
+import {fetchGetMatchesByPlayer} from "../api/matches";
 
 const DEFAULT_SUMMARY: Summary = {
     matches: 0,
@@ -25,7 +25,7 @@ function PlayerPage() {
     const sizeParam: string | null = searchParams.get('size');
     const size: number = sizeParam === null ? 20 : parseInt(sizeParam);
 
-    const [matches, setMatches] = useState<Page<Participant>>();
+    const [matches, setMatches] = useState<Page<MatchStats>>();
     const [loading, setLoading] = useState<boolean>(false);
 
     const [summary, setSummary] = useState<Summary>(DEFAULT_SUMMARY);
@@ -35,7 +35,7 @@ function PlayerPage() {
         document.title = `${Application.brand} - ${nickname}`;
         initSummary();
         setLoading(true);
-        fetchSearchPlayer(nickname, page, size, setMatches)
+        fetchGetMatchesByPlayer(nickname, page, size, setMatches)
             .then(() => setLoading(false))
             .catch(() => setLoading(false));
     }, [path])
@@ -52,15 +52,15 @@ function PlayerPage() {
         if (summaryMemo[index]) {
             summaryMemo[index] = false;
             updateSummary.matches--;
-            updateSummary.kills -= matches!.content[index].stat.kills;
-            updateSummary.assists -= matches!.content[index].stat.assists;
-            updateSummary.damageDealt -= matches!.content[index].stat.damageDealt;
+            updateSummary.kills -= matches!.content[index].stats.kills;
+            updateSummary.assists -= matches!.content[index].stats.assists;
+            updateSummary.damageDealt -= matches!.content[index].stats.damageDealt;
         } else {
             summaryMemo[index] = true;
             updateSummary.matches++;
-            updateSummary.kills += matches!.content[index].stat.kills;
-            updateSummary.assists += matches!.content[index].stat.assists;
-            updateSummary.damageDealt += matches!.content[index].stat.damageDealt;
+            updateSummary.kills += matches!.content[index].stats.kills;
+            updateSummary.assists += matches!.content[index].stats.assists;
+            updateSummary.damageDealt += matches!.content[index].stats.damageDealt;
         }
         setSummary({
             ...summary,

@@ -15,12 +15,12 @@ function MatchInfoContainer(props: MatchInfoProps) {
             <div className="card-body py-4">
                     <div className="d-flex">
                         <div>맵</div>
-                        <div className="ms-auto fw-bold">{props.matchInfo.map.kor}</div>
+                        <div className="ms-auto fw-bold">{props.matchInfo.mapName.kor}</div>
                     </div>
                     <hr/>
                     <div className="d-flex">
                         <div>모드</div>
-                        <div className="ms-auto fw-bold">{props.matchInfo.mode.kor}</div>
+                        <div className="ms-auto fw-bold">{props.matchInfo.gameMode.kor}</div>
                     </div>
                     <hr/>
                     <div className="d-flex">

@@ -5,6 +5,7 @@ import {Page} from "../types/Page";
 import {Match} from "../types/Match";
 import {SearchPlayer} from "../types/SearchPlayer";
 import {MatchStats} from "../types/MatchStats";
+import {Roster} from "../types/Roster";
 
 export function fetchGetMatches(
     page: number,
@@ -37,4 +38,15 @@ export function fetchGetMatchesByPlayer(
         const data : ApiResponse<SearchPlayer> = response.data;
         setResult(data.result.matches);
     }).catch(e => console.log(e))
+}
+
+export function fetchGetRoster(
+    matchId: string,
+    playerName: string,
+) : Promise<Roster> {
+    return useAxios.get(ENDPOINT.MATCHES + `/${matchId}/player/${playerName}/roster`)
+        .then(response => {
+            const data: ApiResponse<Roster> = response.data;
+            return data.result;
+        })
 }

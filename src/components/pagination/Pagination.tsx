@@ -15,7 +15,7 @@ function Pagination({page}: PaginationProps) {
     }
 
     const pageBtnGroup: ReactElement[] = [];
-    for (let i: number = page.paginationStartNum; i < page.paginationEndNum; i++) {
+    for (let i: number = page.paginationStartNum; i <= page.paginationEndNum; i++) {
         pageBtnGroup.push(<PageCursorBtn number={i} page={page.number} size={page.size} key={i}/>);
     }
 

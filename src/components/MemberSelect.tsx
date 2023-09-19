@@ -32,7 +32,7 @@ function MemberSelect(props: MemberSelectProps) {
         event.target.selectedIndex = 0;
     }
 
-    const options = member.map(nickname => <option key={nickname} value={nickname}>{nickname}</option>);
+    const options = member.filter(nickname => nickname !== props.playerName).map(nickname => <option key={nickname} value={nickname}>{nickname}</option>);
 
     return (
         <div className="input-group">

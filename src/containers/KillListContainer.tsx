@@ -1,43 +1,30 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import KillInfoTable from "../components/KillInfoTable";
 import KillDetailTable from "../components/KillDetailTable";
-import {KillLog} from "../types/KillLog";
-import {fetchGetKillLogs} from "../api/telemetries";
-import {fetchGetMatchInfo} from "../api/matches";
 import KillListContainerPlaceHolder from "../components/placeholder/KillListContainerPlaceHolder";
+import {KillLogsContext} from "../contexts/KillLogsContextProvider";
+import {MatchInfoContext} from "../contexts/MatchInfoContextProvider";
 
-type KillListProps = {
-    matchId: string | undefined,
-    playerName: string | undefined,
-}
-
-function KillListContainer(props: KillListProps) {
-    const [killLogs, setKillLogs] = useState<KillLog[] | null>(null);
+function KillListContainer() {
+    const killLogs = useContext(KillLogsContext);
+    const matchInfo = useContext(MatchInfoContext);
     const [matchCreatedAt, setMatchCreatedAt] = useState<string | null>(null);
     const [botCnt, setBotCnt] = useState<number>(0);
 
     useEffect(() => {
-        if (props.matchId === undefined) return;
-
-        fetchGetMatchInfo(props.matchId)
-            .then(result => setMatchCreatedAt(result.createdAt))
-            .catch(e => console.error(e));
-    }, [props.matchId])
+        if (matchInfo === undefined || matchInfo?.createdAt === undefined) return;
+        setMatchCreatedAt(matchInfo.createdAt);
+    }, [matchInfo])
 
     useEffect(() => {
-        if (props.matchId === undefined || props.playerName === undefined) return;
+        if (killLogs === null) return;
         let botCntTemp = 0;
 
-        fetchGetKillLogs(props.matchId, props.playerName)
-            .then(result => {
-                result.forEach(killLog => {
-                    if (killLog.victim.bot) botCntTemp++;
-                });
-                setBotCnt(botCntTemp);
-                setKillLogs(result)
-            })
-            .catch(e => console.error(e));
-    }, [props.matchId, props.playerName])
+        killLogs.forEach(killLog => {
+            if (killLog.victim.bot) botCntTemp++;
+        });
+        setBotCnt(botCntTemp);
+    }, [killLogs])
 
     if (killLogs === null || matchCreatedAt === null) return <KillListContainerPlaceHolder />;
 

@@ -1,24 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {MatchInfo} from "../types/MatchInfo";
+import React, {useContext} from "react";
 import DateTimeUtil from "../util/DateTimeUtil";
 import MatchInfoContainerPlaceHolder from "../components/placeholder/MatchInfoContainerPlaceHolder";
-import {fetchGetMatchInfo} from "../api/matches";
+import {MatchInfoContext} from "../contexts/MatchInfoContextProvider";
 
-type MatchInfoContainerProps = {
-    matchId: string | undefined
-}
-
-function MatchInfoContainer(props: MatchInfoContainerProps) {
-    const [matchInfo, setMatchInfo] = useState<MatchInfo | null>(null);
-
-    useEffect(() => {
-        if (props.matchId === undefined) return;
-
-        fetchGetMatchInfo(props.matchId)
-            .then(result => {
-                setMatchInfo(result);
-            }).catch(e => console.error(e));
-    }, [props.matchId])
+function MatchInfoContainer() {
+    const matchInfo = useContext(MatchInfoContext);
 
     if (matchInfo === null) return <MatchInfoContainerPlaceHolder />;
 

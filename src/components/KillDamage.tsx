@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import KillDamageLogTable from "./KillDamageLogTable";
 import KillDamageDealt from "./KillDamageDealt";
-import {KillLog} from "../types/KillLog";
 import {Accordion} from "react-bootstrap";
-import {fetchGetMatchInfo, fetchGetRoster} from "../api/matches";
 import {DamageLog} from "../types/DamageLog";
-import {fetchGetDamagesOfKills, fetchGetKillLogs} from "../api/telemetries";
+import {fetchGetDamagesOfKills} from "../api/telemetries";
+import {RosterContext} from "../contexts/RosterContextProvider";
+import {MatchInfoContext} from "../contexts/MatchInfoContextProvider";
+import {KillLogsContext} from "../contexts/KillLogsContextProvider";
 
 type KillDamageProps = {
     matchId: string | undefined,
@@ -13,29 +14,29 @@ type KillDamageProps = {
 }
 
 function KillDamage(props: KillDamageProps) {
+    const roster = useContext(RosterContext);
     const [member, setMember] = useState<string[] | null>(null);
+    const matchInfo = useContext(MatchInfoContext);
     const [matchCreatedAt, setMatchCreatedAt] = useState<string | null>(null);
-    const [killLogs, setKillLogs] = useState<KillLog[] | null>(null);
+    const killLogs = useContext(KillLogsContext);
     const [damageLogsGroupByVictim, setDamageLogsGroupByVictim] = useState<Map<string, DamageLog[]> | null>(null);
     const [damageDealtGroupByVictim, setDamageDealtGroupByVictim] = useState<Map<string, Map<string, number>> | null>(null);
 
     useEffect(() => {
-        if (props.matchId === undefined) return;
+        if (roster === null) return;
 
-        fetchGetMatchInfo(props.matchId)
-            .then(result => setMatchCreatedAt(result.createdAt))
-            .catch(e => console.error(e));
-    }, [props.matchId])
+        const memberTemp = roster.participants.map(participant => participant.name);
+        setMember(memberTemp);
+    }, [roster])
+
+    useEffect(() => {
+        if (matchInfo === null) return;
+
+        setMatchCreatedAt(matchInfo.createdAt);
+    }, [matchInfo])
 
     useEffect(() => {
         if (props.matchId === undefined || props.playerName === undefined) return;
-
-        fetchGetRoster(props.matchId, props.playerName)
-            .then(result => {
-                const names: string[] = result.participants.map(ele => ele.name);
-                setMember(names);
-            })
-            .catch(e => console.error(e));
 
         fetchGetDamagesOfKills(props.matchId, props.playerName)
             .then(result => {
@@ -63,11 +64,6 @@ function KillDamage(props: KillDamageProps) {
                 setDamageDealtGroupByVictim(damageDealtGroupByVictimTemp);
             })
             .catch(e => console.error(e));
-
-        fetchGetKillLogs(props.matchId, props.playerName)
-            .then(result => setKillLogs(result))
-            .catch(e => console.error(e));
-
     }, [props.matchId, props.playerName]);
 
     if (damageLogsGroupByVictim === null || member === null || matchCreatedAt === null || killLogs === null) return null;

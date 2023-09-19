@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
 import KillDamage from "../components/KillDamage";
 import TotalDamage from "../components/TotalDamage";
 import PhaseDamageChart from "../components/PhaseDamageChart";
 import ContributeDamageChart from "../components/ContributeDamageChart";
+import {KillLogsContext} from "../contexts/KillLogsContextProvider";
+import {AllOwnDamageContext} from "../contexts/AllOwnDamageContextProvider";
 
 type AnalyzeProps = {
     matchId: string | undefined,
@@ -10,7 +12,17 @@ type AnalyzeProps = {
 }
 
 function AnalyzeContainer(props: AnalyzeProps) {
-    if (props.matchId === undefined || props.playerName === undefined) return null;
+    const killLogs = useContext(KillLogsContext);
+    const ownDamageLogs = useContext(AllOwnDamageContext);
+
+    if (props.matchId === undefined
+        || props.playerName === undefined
+        || killLogs === null
+        || ownDamageLogs === null) {
+        return null;
+    }
+
+    if (killLogs.length === 0 && ownDamageLogs.length === 0) return null;
 
     return (
         <div className="vstack gap-4">
@@ -42,7 +54,7 @@ function AnalyzeContainer(props: AnalyzeProps) {
             {/*!-- 킬 데미지 분석 아코디언 --*/}
             <KillDamage matchId={props.matchId} playerName={props.playerName} />
             {/*!-- 전체 데미지 아코디언 --*/}
-            <TotalDamage matchId={props.matchId} playerName={props.playerName} />
+            <TotalDamage />
         </div>
     )
 }

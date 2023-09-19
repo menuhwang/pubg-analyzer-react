@@ -1,35 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import TotalDamageLogTable from "./TotalDamageLogTable";
-import {DamageLog} from "../types/DamageLog";
-import {fetchGetMatchInfo} from "../api/matches";
-import {fetchGetDamageLogs} from "../api/telemetries";
+import {MatchInfoContext} from "../contexts/MatchInfoContextProvider";
+import {AllOwnDamageContext} from "../contexts/AllOwnDamageContextProvider";
 
-type TotalDamageProps = {
-    matchId: string
-    playerName: string
-}
-
-function TotalDamage(props: TotalDamageProps) {
+function TotalDamage() {
+    const matchInfo = useContext(MatchInfoContext);
     const [matchCreatedAt, setMatchCreatedAt] = useState<string | null>(null);
-    const [damageLogs, setDamageLogs] = useState<DamageLog[] | null>(null);
+    const damageLogs = useContext(AllOwnDamageContext);
 
     useEffect(() => {
-        if (props.matchId === undefined) return;
+        if (matchInfo === null) return;
 
-        fetchGetMatchInfo(props.matchId)
-            .then(result => setMatchCreatedAt(result.createdAt))
-            .catch(e => console.error(e));
-    }, [props.matchId])
+        setMatchCreatedAt(matchInfo.createdAt);
+    }, [matchInfo])
 
-    useEffect(() => {
-        if (props.matchId === undefined || props.playerName === undefined) return;
-
-        fetchGetDamageLogs(props.matchId, props.playerName)
-            .then(result => setDamageLogs(result))
-            .catch(e => console.error(e));
-    }, [props.matchId, props.playerName])
-
-    if (matchCreatedAt === null || damageLogs === null || damageLogs.length < 1) return null;
+    if (matchCreatedAt === null || damageLogs === null || damageLogs.length === 0) return null;
 
     return (
         <div className="row">

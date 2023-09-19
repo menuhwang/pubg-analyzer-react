@@ -5,6 +5,7 @@ import MatchInfoContainer from "./MatchInfoContainer";
 import MatchResultContainer from "./MatchResultContainer";
 import KillListContainer from "./KillListContainer";
 import AnalyzeContainer from "./AnalyzeContainer";
+import AllOwnDamageContextProvider from "../contexts/AllOwnDamageContextProvider";
 
 function ReportContainer() {
     const {matchId, nickname} = useParams<string>();
@@ -31,7 +32,7 @@ function ReportContainer() {
                             <div className="row g-4">
                                 {/*!-- 매치 정보 --*/}
                                 <div className="col-md-6">
-                                    <MatchInfoContainer matchId={matchId} />
+                                    <MatchInfoContainer />
                                 </div>
                                 {/*!-- 매치 결과 --*/}
                                 <div className="col-md-6">
@@ -41,12 +42,14 @@ function ReportContainer() {
                             {/*!-- 킬 목록 --*/}
                             <div className="row">
                                 <div className="col">
-                                    <KillListContainer matchId={matchId} playerName={nickname} />
+                                    <KillListContainer />
                                 </div>
                             </div>
                         </div>
                         {/*!-- 분석 --*/}
-                        <AnalyzeContainer matchId={matchId} playerName={nickname}/>
+                        <AllOwnDamageContextProvider>
+                            <AnalyzeContainer matchId={matchId} playerName={nickname}/>
+                        </AllOwnDamageContextProvider>
                     </div>
                 </div>
                 {/*!--sidebar:right--*/}

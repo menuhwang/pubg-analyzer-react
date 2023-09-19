@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {fetchGetRoster} from "../api/matches";
 import {MemberSelectPlaceHolder} from "./placeholder/MemberSelectPlaceHolder";
+import {RosterContext} from "../contexts/RosterContextProvider";
 
 type MemberSelectProps = {
     matchId: string | undefined
@@ -9,22 +9,18 @@ type MemberSelectProps = {
 }
 
 function MemberSelect(props: MemberSelectProps) {
+    const roster = useContext(RosterContext);
     const navigator = useNavigate();
-    const [member, setMember] = useState<string[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [member, setMember] = useState<string[] | null>(null);
 
     useEffect(() => {
-        if (props.matchId === undefined || props.playerName === undefined) return;
-        fetchGetRoster(props.matchId, props.playerName)
-            .then(result => {
-                const names: string[] = result.participants.map(ele => ele.name);
-                setMember(names);
-                setLoading(false);
-            }).catch(e => console.error(e));
-    }, [props.matchId, props.playerName])
+        if (roster === null) return;
+        const memberTemp = roster.participants.map(participant => participant.name).filter(nickname => nickname !== props.playerName);
+        setMember(memberTemp);
+    }, [roster, props.playerName])
 
-    if (loading) return <MemberSelectPlaceHolder />
-    if (member.length < 2) return null;
+    if (member === null) return <MemberSelectPlaceHolder />
+    if (member.length === 0) return null;
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
         if (event.target.value === undefined) return;
@@ -32,7 +28,7 @@ function MemberSelect(props: MemberSelectProps) {
         event.target.selectedIndex = 0;
     }
 
-    const options = member.filter(nickname => nickname !== props.playerName).map(nickname => <option key={nickname} value={nickname}>{nickname}</option>);
+    const options = member.map(nickname => <option key={nickname} value={nickname}>{nickname}</option>);
 
     return (
         <div className="input-group">

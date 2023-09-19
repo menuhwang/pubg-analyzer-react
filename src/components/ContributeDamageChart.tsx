@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     CategoryScale,
     LinearScale,
@@ -9,6 +9,8 @@ import {
 } from 'chart.js';
 import {Chart as ChartJS} from 'chart.js/auto';
 import {Bar} from 'react-chartjs-2';
+import {ContributeDamageChartResponse} from "../types/ContributeDamageChartResponse";
+import {fetchGetContributeDamageChart} from "../api/telemetries";
 
 ChartJS.register(
     CategoryScale,
@@ -20,11 +22,8 @@ ChartJS.register(
 );
 
 type ContributeDamageChartProps = {
-    datasets: {
-        data: number[]
-        label: string
-    }[]
-    labels: string[]
+    matchId: string | undefined,
+    playerName: string | undefined,
 }
 
 const options = {
@@ -68,9 +67,21 @@ const options = {
 };
 
 function ContributeDamageChart(props: ContributeDamageChartProps) {
+    const [contributeDamageChartData, setContributeDamageChartData] = useState<ContributeDamageChartResponse | null>(null);
+
+    useEffect(() => {
+        if (props.matchId === undefined || props.playerName === undefined) return;
+
+        fetchGetContributeDamageChart(props.matchId, props.playerName)
+            .then(result => setContributeDamageChartData(result))
+            .catch(e => console.error(e));
+    }, [props.matchId, props.playerName])
+
+    if (contributeDamageChartData === null) return null;
+
     const data = {
-        labels: props.labels,
-        datasets: props.datasets
+        labels: contributeDamageChartData.labels,
+        datasets: contributeDamageChartData.datasets
     };
 
     return (

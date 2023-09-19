@@ -1,14 +1,35 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import TotalDamageLogTable from "./TotalDamageLogTable";
 import {DamageLog} from "../types/DamageLog";
+import {fetchGetMatchInfo} from "../api/matches";
+import {fetchGetDamageLogs} from "../api/telemetries";
 
 type TotalDamageProps = {
-    matchCreatedAt: string
-    damageLog: DamageLog[]
+    matchId: string
+    playerName: string
 }
 
 function TotalDamage(props: TotalDamageProps) {
-    if (props.damageLog === undefined || props.damageLog.length === 0) return null;
+    const [matchCreatedAt, setMatchCreatedAt] = useState<string | null>(null);
+    const [damageLogs, setDamageLogs] = useState<DamageLog[] | null>(null);
+
+    useEffect(() => {
+        if (props.matchId === undefined) return;
+
+        fetchGetMatchInfo(props.matchId)
+            .then(result => setMatchCreatedAt(result.createdAt))
+            .catch(e => console.error(e));
+    }, [props.matchId])
+
+    useEffect(() => {
+        if (props.matchId === undefined || props.playerName === undefined) return;
+
+        fetchGetDamageLogs(props.matchId, props.playerName)
+            .then(result => setDamageLogs(result))
+            .catch(e => console.error(e));
+    }, [props.matchId, props.playerName])
+
+    if (matchCreatedAt === null || damageLogs === null || damageLogs.length < 1) return null;
 
     return (
         <div className="row">
@@ -26,7 +47,7 @@ function TotalDamage(props: TotalDamageProps) {
                              aria-labelledby="damages-heading"
                              data-bs-parent="#damages-accordion">
                             <div className="accordion-body">
-                                <TotalDamageLogTable matchCreatedAt={props.matchCreatedAt} damageLog={props.damageLog} />
+                                <TotalDamageLogTable matchCreatedAt={matchCreatedAt} damageLog={damageLogs} />
                             </div>
                         </div>
                     </div>

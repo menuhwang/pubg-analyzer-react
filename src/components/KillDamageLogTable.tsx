@@ -8,6 +8,8 @@ type KillDamageLogTableProps = {
 }
 
 function KillDamageLogTable(props: KillDamageLogTableProps) {
+    if (props.matchCreatedAt === undefined || props.damageLog === undefined) return null;
+
     const tr = props.damageLog.map(log =>
         <tr key={log.timestamp}>
             <td>{DateTimeUtil.offsetToMinSec(props.matchCreatedAt, log.timestamp)}</td>

@@ -3,17 +3,14 @@ import KillDamage from "../components/KillDamage";
 import TotalDamage from "../components/TotalDamage";
 import PhaseDamageChart from "../components/PhaseDamageChart";
 import ContributeDamageChart from "../components/ContributeDamageChart";
-import {Analyze} from "../types/Analyze";
 
 type AnalyzeProps = {
-    matchCreatedAt: string
-    player: string
-    member: string[]
-    analyze: Analyze
+    matchId: string | undefined,
+    playerName: string | undefined,
 }
 
 function AnalyzeContainer(props: AnalyzeProps) {
-    if (props.analyze.damageLog === undefined || props.analyze.damageLog.length === 0) return null;
+    if (props.matchId === undefined || props.playerName === undefined) return null;
 
     return (
         <div className="vstack gap-4">
@@ -26,7 +23,7 @@ function AnalyzeContainer(props: AnalyzeProps) {
                             <h4 className="card-title fw-bold">페이즈 별 데미지</h4>
                         </div>
                         <div className="card-body py-4">
-                            <PhaseDamageChart datasets={props.analyze.charts.phaseDamageChart.datasets} />
+                            <PhaseDamageChart matchId={props.matchId} playerName={props.playerName} />
                         </div>
                     </div>
                 </div>
@@ -37,20 +34,15 @@ function AnalyzeContainer(props: AnalyzeProps) {
                             <h4 className="card-title fw-bold">킬 데미지 기여도</h4>
                         </div>
                         <div className="card-body py-4">
-                            <ContributeDamageChart datasets={props.analyze.charts.contributeDamageChart.datasets} labels={props.analyze.charts.contributeDamageChart.labels} />
+                            <ContributeDamageChart matchId={props.matchId} playerName={props.playerName} />
                         </div>
                     </div>
                 </div>
             </div>
             {/*!-- 킬 데미지 분석 아코디언 --*/}
-            <KillDamage matchCreatedAt={props.matchCreatedAt}
-                        player={props.player}
-                        member={props.member}
-                        killLog={props.analyze.killLog}
-                        victimPlayerDamageDealt={props.analyze.victimPlayerDamageDealt}
-                        victimDamageLog={props.analyze.victimDamageLog} />
+            <KillDamage matchId={props.matchId} playerName={props.playerName} />
             {/*!-- 전체 데미지 아코디언 --*/}
-            <TotalDamage matchCreatedAt={props.matchCreatedAt} damageLog={props.analyze.damageLog}/>
+            <TotalDamage matchId={props.matchId} playerName={props.playerName} />
         </div>
     )
 }

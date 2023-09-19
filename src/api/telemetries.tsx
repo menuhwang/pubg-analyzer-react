@@ -2,6 +2,9 @@ import {KillLog} from "../types/KillLog";
 import {useAxios} from "../hooks/api/useAxios";
 import {ENDPOINT} from "../constants/api";
 import {ApiResponse} from "../types/ApiResponse";
+import {PhaseDamageChartResponse} from "../types/PhaseDamageChartResponse";
+import {ContributeDamageChartResponse} from "../types/ContributeDamageChartResponse";
+import {DamageLog} from "../types/DamageLog";
 
 export function fetchGetKillLogs(
     matchId: string,
@@ -10,6 +13,50 @@ export function fetchGetKillLogs(
     return useAxios.get(ENDPOINT.TELEMETRIES + `/${matchId}/player/${playerName}/kills`)
         .then(response => {
             const data: ApiResponse<KillLog[]> = response.data;
+            return data.result;
+        })
+}
+
+export function fetchGetPhaseDamageChart(
+    matchId: string,
+    playerName: string
+): Promise<PhaseDamageChartResponse> {
+    return useAxios.get(ENDPOINT.TELEMETRIES + `/${matchId}/player/${playerName}/phase-damage-chart`)
+        .then(response => {
+            const data: ApiResponse<PhaseDamageChartResponse> = response.data;
+            return data.result;
+        })
+}
+
+export function fetchGetContributeDamageChart(
+    matchId: string,
+    playerName: string
+): Promise<ContributeDamageChartResponse> {
+    return useAxios.get(ENDPOINT.TELEMETRIES + `/${matchId}/player/${playerName}/contribute-damage-chart`)
+        .then(response => {
+            const data: ApiResponse<ContributeDamageChartResponse> = response.data;
+            return data.result;
+        })
+}
+
+export function fetchGetDamagesOfKills(
+    matchId: string,
+    playerName: string
+): Promise<DamageLog[]> {
+    return useAxios.get(ENDPOINT.TELEMETRIES + `/${matchId}/player/${playerName}/kills/damages`)
+        .then(response => {
+            const data: ApiResponse<DamageLog[]> = response.data;
+            return data.result;
+        })
+}
+
+export function fetchGetDamageLogs(
+    matchId: string,
+    playerName: string
+): Promise<DamageLog[]> {
+    return useAxios.get(ENDPOINT.TELEMETRIES + `/${matchId}/player/${playerName}/damages`)
+        .then(response => {
+            const data: ApiResponse<DamageLog[]> = response.data;
             return data.result;
         })
 }

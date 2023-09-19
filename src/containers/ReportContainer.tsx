@@ -1,34 +1,13 @@
-import React, {useEffect, useState} from "react";
-import {Link, useLocation, useParams} from "react-router-dom";
+import React from "react";
+import {Link, useParams} from "react-router-dom";
 import MemberSelect from "../components/MemberSelect";
 import MatchInfoContainer from "./MatchInfoContainer";
 import MatchResultContainer from "./MatchResultContainer";
 import KillListContainer from "./KillListContainer";
 import AnalyzeContainer from "./AnalyzeContainer";
-import {Report} from "../types/Report";
-import {fetchGetMatchReport} from "../api/report";
-import ReportContainerPlaceHolder from "../components/placeholder/ReportContainerPlaceHolder";
 
 function ReportContainer() {
-    const path = useLocation();
     const {matchId, nickname} = useParams<string>();
-    const [report, setReport] = useState<Report>();
-    const [loading, setLoading] = useState<boolean>(false);
-
-    useEffect(() => {
-        setLoading(true);
-        fetchGetMatchReport(matchId, nickname)
-            .then(result => {
-                setReport(result);
-                setLoading(false);
-            })
-            .catch(e => {
-                console.error(e);
-                setLoading(false);
-            });
-    }, [path])
-
-    if (loading || report === undefined) return <ReportContainerPlaceHolder />
 
     return (
         <div className="report-container container-fluid py-md-4">
@@ -42,7 +21,7 @@ function ReportContainer() {
                                   to={`/player/${nickname}`}>{nickname}</Link>
                         </div>
                         <div className="col-md-4">
-                            <MemberSelect matchId={report!.matchInfo.id} member={report!.matchResult.member} />
+                            <MemberSelect matchId={matchId} playerName={nickname} />
                         </div>
                     </div>
                     <div className="content vstack gap-4">
@@ -52,25 +31,22 @@ function ReportContainer() {
                             <div className="row g-4">
                                 {/*!-- 매치 정보 --*/}
                                 <div className="col-md-6">
-                                    <MatchInfoContainer matchInfo={report!.matchInfo} />
+                                    <MatchInfoContainer matchId={matchId} />
                                 </div>
                                 {/*!-- 매치 결과 --*/}
                                 <div className="col-md-6">
-                                    <MatchResultContainer matchResult={report!.matchResult} />
+                                    <MatchResultContainer matchId={matchId} playerName={nickname} />
                                 </div>
                             </div>
                             {/*!-- 킬 목록 --*/}
                             <div className="row">
                                 <div className="col">
-                                    <KillListContainer matchCreatedAt={report!.matchInfo.createdAt} killLog={report!.data.killLog} player={report!.data.player} bot={report!.data.bot} />
+                                    <KillListContainer matchId={matchId} playerName={nickname} />
                                 </div>
                             </div>
                         </div>
                         {/*!-- 분석 --*/}
-                        <AnalyzeContainer matchCreatedAt={report!.matchInfo.createdAt}
-                                          player={nickname!}
-                                          member={report!.matchResult.member!}
-                                          analyze={report!.data} />
+                        <AnalyzeContainer matchId={matchId} playerName={nickname}/>
                     </div>
                 </div>
                 {/*!--sidebar:right--*/}

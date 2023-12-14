@@ -4,7 +4,7 @@ COPY package.json .
 RUN npm install
 COPY . .
 
-ENV REACT_APP_API_HOST=https://api.battlestats.site
+ENV REACT_APP_API_HOST=https://api.battlestats.menuhwang.com
 
 RUN npm run build
 

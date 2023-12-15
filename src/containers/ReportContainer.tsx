@@ -6,6 +6,7 @@ import MatchResultContainer from "./MatchResultContainer";
 import KillListContainer from "./KillListContainer";
 import AnalyzeContainer from "./AnalyzeContainer";
 import AllOwnDamageContextProvider from "../contexts/AllOwnDamageContextProvider";
+import ShareButton from "../components/ShareButton";
 
 function ReportContainer() {
     const {matchId, nickname} = useParams<string>();
@@ -21,8 +22,15 @@ function ReportContainer() {
                             <Link className="h3 m-0 text-decoration-none text-dark fw-bold" role="button"
                                   to={`/player/${nickname}`}>{nickname}</Link>
                         </div>
-                        <div className="col-md-4">
-                            <MemberSelect matchId={matchId} playerName={nickname} />
+                        <div className="col-md-5">
+                            <div className="row">
+                                <div className="col-9">
+                                    <MemberSelect matchId={matchId} playerName={nickname} />
+                                </div>
+                                <div className="col-3 d-grid">
+                                    <ShareButton />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="content vstack gap-4">

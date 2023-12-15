@@ -5,4 +5,5 @@ export const ENDPOINT = {
     PLAYERS: '/players',
     REPORT: '/report',
     TELEMETRIES: '/telemetries',
+    SHARE: '/share',
 }

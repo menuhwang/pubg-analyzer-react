@@ -15,3 +15,12 @@ export function fetchPostLinkShare(
         return data.result;
     });
 }
+
+export function redirectShareLink(
+    id: string
+): Promise<ShareLink> {
+    return useAxios.get(`${ENDPOINT.SHARE}/${id}`).then(response => {
+        const data: ApiResponse<ShareLink> = response.data;
+        return data.result;
+    });
+}

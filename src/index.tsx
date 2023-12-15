@@ -15,6 +15,7 @@ import BookmarkUtil from "./util/BookmarkUtil";
 import ReportPage from "./pages/ReportPage";
 import Navbar from "./components/navbar/Navbar";
 import {Application} from "./constants/application";
+import RedirectPage from "./pages/RedirectPage";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -29,6 +30,7 @@ root.render(
                     <Route path={"/"} element={<HomePage />} />
                     <Route path={"/player/:nickname"} element={<PlayerPage />} />
                     <Route path={"/report/match/:matchId/player/:nickname"} element={<ReportPage />} />
+                    <Route path={"/share/:id"} element={<RedirectPage />} />
                 </Routes>
             </BookmarkContext.Provider>
         </BrowserRouter>

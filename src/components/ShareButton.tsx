@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {fetchPostLinkShare} from "../api/share";
 import {CopyToClipboard} from "react-copy-to-clipboard";
@@ -8,20 +8,19 @@ function ShareButton() {
     const location = useLocation();
     const path = location.pathname;
     const [disable, setDisable] = useState<boolean>(false);
-    const [showPop, setShowPop] = useState<boolean>(false);
+    const [show, setShow] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [shortLink, setShortLink] = useState<string | null>(null);
-    const target = useRef(null);
 
     useEffect(() => {
         setShortLink(null);
         setDisable(false);
-        setShowPop(false);
+        setShow(false);
         setLoading(false);
     }, [path])
 
     const onClickHandler = () => {
-        setShowPop(!showPop);
+        setShow(!show);
         if (shortLink) {
             return;
         }
@@ -50,7 +49,7 @@ function ShareButton() {
             <Popover.Header as="div">
                 <Stack direction="horizontal">
                     <div>공유하기</div>
-                    <div className="ms-auto" role="button" onClick={() => setShowPop(false)}>
+                    <div className="ms-auto" role="button" onClick={() => setShow(false)}>
                         <i className="fa-solid fa-xmark"></i>
                     </div>
                 </Stack>
@@ -81,14 +80,11 @@ function ShareButton() {
     );
 
     return (
-        <>
-            <OverlayTrigger trigger="click" placement="bottom-end" overlay={popover} show={showPop}>
-                <Button className="btn btn-primary my-auto px-sm-1" ref={target} disabled={disable} onClick={() => onClickHandler()}>
-                    공유
-                </Button>
-            </OverlayTrigger>
-        </>
-
+        <OverlayTrigger trigger="click" placement="bottom-end" overlay={popover} show={show}>
+            <Button className="btn btn-primary my-auto px-sm-1" disabled={disable} onClick={() => onClickHandler()}>
+                공유
+            </Button>
+        </OverlayTrigger>
     )
 }
 

@@ -5,6 +5,7 @@ import PhaseDamageChart from "../components/PhaseDamageChart";
 import ContributeDamageChart from "../components/ContributeDamageChart";
 import {KillLogsContext} from "../contexts/KillLogsContextProvider";
 import {AllOwnDamageContext} from "../contexts/AllOwnDamageContextProvider";
+import WeaponAccuracyChart from "../components/WeaponAccuracyChart";
 
 type AnalyzeProps = {
     matchId: string | undefined,
@@ -47,6 +48,19 @@ function AnalyzeContainer(props: AnalyzeProps) {
                         </div>
                         <div className="card-body py-4">
                             <ContributeDamageChart matchId={props.matchId} playerName={props.playerName} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                {/*무기 정확도 그래프*/}
+                <div className="col">
+                    <div className="card mb-4 h-100">
+                        <div className="card-header pt-4">
+                            <h4 className="card-title fw-bold">무기 정확도</h4>
+                        </div>
+                        <div className="card-body py-4">
+                            <WeaponAccuracyChart matchId={props.matchId} playerName={props.playerName} />
                         </div>
                     </div>
                 </div>

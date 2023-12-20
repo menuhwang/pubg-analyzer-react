@@ -60,3 +60,14 @@ export function fetchGetDamageLogs(
             return data.result;
         })
 }
+
+export function fetchGetWeaponAccuracyChart(
+    matchId: string,
+    playerName: string
+): Promise<BarChartResponse> {
+    return useAxios.get(ENDPOINT.TELEMETRIES + `/${matchId}/player/${playerName}/weapon-accuracy-chart`)
+        .then(response => {
+            const data: ApiResponse<BarChartResponse> = response.data;
+            return data.result;
+        })
+}

@@ -3,7 +3,7 @@ import {useAxios} from "../hooks/api/useAxios";
 import {ENDPOINT} from "../constants/api";
 import {ApiResponse} from "../types/ApiResponse";
 import {PhaseDamageChartResponse} from "../types/PhaseDamageChartResponse";
-import {ContributeDamageChartResponse} from "../types/ContributeDamageChartResponse";
+import {BarChartResponse} from "../types/BarChartResponse";
 import {DamageLog} from "../types/DamageLog";
 
 export function fetchGetKillLogs(
@@ -31,10 +31,10 @@ export function fetchGetPhaseDamageChart(
 export function fetchGetContributeDamageChart(
     matchId: string,
     playerName: string
-): Promise<ContributeDamageChartResponse> {
+): Promise<BarChartResponse> {
     return useAxios.get(ENDPOINT.TELEMETRIES + `/${matchId}/player/${playerName}/contribute-damage-chart`)
         .then(response => {
-            const data: ApiResponse<ContributeDamageChartResponse> = response.data;
+            const data: ApiResponse<BarChartResponse> = response.data;
             return data.result;
         })
 }

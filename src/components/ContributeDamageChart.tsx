@@ -9,7 +9,7 @@ import {
 } from 'chart.js';
 import {Chart as ChartJS} from 'chart.js/auto';
 import {Bar} from 'react-chartjs-2';
-import {ContributeDamageChartResponse} from "../types/ContributeDamageChartResponse";
+import {BarChartResponse} from "../types/BarChartResponse";
 import {fetchGetContributeDamageChart} from "../api/telemetries";
 
 ChartJS.register(
@@ -67,7 +67,7 @@ const options = {
 };
 
 function ContributeDamageChart(props: ContributeDamageChartProps) {
-    const [contributeDamageChartData, setContributeDamageChartData] = useState<ContributeDamageChartResponse | null>(null);
+    const [contributeDamageChartData, setContributeDamageChartData] = useState<BarChartResponse | null>(null);
 
     useEffect(() => {
         if (props.matchId === undefined || props.playerName === undefined) return;

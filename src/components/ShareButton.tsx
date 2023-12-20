@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {fetchPostLinkShare} from "../api/share";
 import {CopyToClipboard} from "react-copy-to-clipboard";
-import {Button, OverlayTrigger, Popover, Row, Spinner, Stack} from "react-bootstrap";
+import {Button, OverlayTrigger, Popover, Spinner, Stack} from "react-bootstrap";
 
 function ShareButton() {
     const location = useLocation();
@@ -10,11 +10,11 @@ function ShareButton() {
     const [disable, setDisable] = useState<boolean>(false);
     const [showPop, setShowPop] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
-    const [shortLink, setShortLink] = useState<string>("");
+    const [shortLink, setShortLink] = useState<string | null>(null);
     const target = useRef(null);
 
     useEffect(() => {
-        setShortLink("");
+        setShortLink(null);
         setDisable(false);
         setShowPop(false);
         setLoading(false);
@@ -37,7 +37,6 @@ function ShareButton() {
                 setShortLink(window.location.host + result.path);
                 setDisable(false);
                 setLoading(false);
-                console.log(shortLink);
             })
             .catch(e => {
                 setDisable(false);
@@ -63,6 +62,7 @@ function ShareButton() {
                                     <span className="visually-hidden">Loading...</span>
                                 </Spinner>
                                 :
+                                shortLink ?
                                 <Stack direction="horizontal" gap={3}>
                                     <div>{shortLink}</div>
                                     <CopyToClipboard text={shortLink} onCopy={() => alert("복사 완료")}>
@@ -71,6 +71,10 @@ function ShareButton() {
                                         </div>
                                     </CopyToClipboard>
                                 </Stack>
+                                :
+                                <div>
+                                    잠시 후 다시 시도해 주세요.
+                                </div>
                         }
             </Popover.Body>
         </Popover>

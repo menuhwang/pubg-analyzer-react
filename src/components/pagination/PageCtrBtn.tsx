@@ -11,9 +11,15 @@ type PageCtrBtnProps = {
     disable: boolean,
     page: number,
     size: number,
+    matchType?: null | string
 }
 
-function PageCtrBtn({type, disable, page, size}: PageCtrBtnProps) {
+function PageCtrBtn({type, disable, page, size, matchType}: PageCtrBtnProps) {
+    let url = `?page=${page}&size=${size}`;
+    if (matchType) {
+        url += `&matchType=${matchType}`;
+    }
+
     return (
         <>
             {
@@ -25,7 +31,7 @@ function PageCtrBtn({type, disable, page, size}: PageCtrBtnProps) {
                     </li>
                     :
                     <li className="page-item">
-                        <Link className="page-link" to={`?page=${page}&size=${size}`}>
+                        <Link className="page-link" to={url}>
                             <span aria-hidden="true">{type}</span>
                         </Link>
                     </li>

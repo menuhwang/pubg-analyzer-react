@@ -29,12 +29,14 @@ export function fetchGetMatchesByPlayer(
     nickname: string | undefined,
     page: number,
     size: number,
+    matchType: null | string,
     setResult: (data: Page<MatchStats> | undefined) => void
 ): Promise<void> {
     return useAxios.get(ENDPOINT.MATCHES + `/player/${nickname}`, {
         params: {
             page,
-            size
+            size,
+            matchTypes: matchType
         }
     }).then(response => {
         const data : ApiResponse<SearchPlayer> = response.data;

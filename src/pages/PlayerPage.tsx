@@ -24,6 +24,7 @@ function PlayerPage() {
     const page: number = pageParam === null ? 0 : parseInt(pageParam);
     const sizeParam: string | null = searchParams.get('size');
     const size: number = sizeParam === null ? 20 : parseInt(sizeParam);
+    const matchType: string | null = searchParams.get('matchType');
 
     const [matches, setMatches] = useState<Page<MatchStats>>();
     const [loading, setLoading] = useState<boolean>(false);
@@ -35,7 +36,7 @@ function PlayerPage() {
         document.title = `${Application.brand} - ${nickname}`;
         initSummary();
         setLoading(true);
-        fetchGetMatchesByPlayer(nickname, page, size, setMatches)
+        fetchGetMatchesByPlayer(nickname, page, size, matchType, setMatches)
             .then(() => setLoading(false))
             .catch(() => setLoading(false));
     }, [path])
@@ -85,7 +86,7 @@ function PlayerPage() {
                 <div className="col-md-8 col-lg-6 vstack gap-4">
                     <PlayerTagContainer nickname={nickname}/>
                     <MatchesTableContainer loading={loading} player={nickname} matches={matches}
-                                           itemClickHandler={summaryMatch} selected={summaryMemo}/>
+                                           itemClickHandler={summaryMatch} selected={summaryMemo} matchType={matchType}/>
                 </div>
                 {/*<!--sidebar:right-->*/}
                 <aside className="col-lg-2">

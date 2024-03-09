@@ -1,6 +1,7 @@
 import React from "react";
 import {DamageLog} from "../types/DamageLog";
 import DateTimeUtil from "../util/DateTimeUtil";
+import {Link, useParams} from "react-router-dom";
 
 type TotalDamageLogTableProps = {
     matchCreatedAt: string
@@ -8,10 +9,15 @@ type TotalDamageLogTableProps = {
 }
 
 function TotalDamageLogTable(props: TotalDamageLogTableProps) {
-    const tr = props.damageLog.map(log =>
-        <tr key={log.timestamp}>
+    const {matchId} = useParams();
+
+    const tr = props.damageLog.map(log => {
+        const victim = log.victim.name;
+        const url = `/report/match/${matchId}/player/${victim}`;
+
+        return (<tr key={log.timestamp}>
             <td>{DateTimeUtil.offsetToMinSec(props.matchCreatedAt, log.timestamp)}</td>
-            <td>{log.victim.name}</td>
+            <td>{log.victim.bot ? victim : <Link to={url}>{victim}</Link>}</td>
             <td>{log.damageReason.kor}</td>
             <td>{log.damageCauserName.kor}</td>
             {
@@ -24,8 +30,8 @@ function TotalDamageLogTable(props: TotalDamageLogTableProps) {
                         <td>{(log.victim.health! - log.damage).toFixed(2)}</td>
                     </>
             }
-        </tr>
-    )
+        </tr>)
+    })
     return (
         <div className="table-responsive">
             <table className="table align-middle">

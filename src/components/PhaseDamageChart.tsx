@@ -33,15 +33,8 @@ function PhaseDamageChart(props: PhaseDamageChartProps) {
 
     if (damageChartData === null) return null;
 
-    const data = {
-        labels: ['0 페이즈', '1 페이즈', '2 페이즈', '3 페이즈', '4 페이즈', '5 페이즈', '6 페이즈', '7 페이즈', '8 페이즈', '9 페이즈'],
-        datasets: [{
-            data: damageChartData.data
-        }]
-    }
-
     return (
-        <Doughnut options={options} data={data} />
+        <Doughnut options={options} data={damageChartData} />
     );
 }
 

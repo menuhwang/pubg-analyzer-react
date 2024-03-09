@@ -1,3 +1,7 @@
 export type PhaseDamageChartResponse = {
-    data: number[]
+    labels: string[]
+    datasets: {
+        label: string,
+        data: number[]
+    }[]
 }

@@ -14,7 +14,7 @@ function KillDamageLogTable(props: KillDamageLogTableProps) {
         <tr key={log.timestamp}>
             <td>{DateTimeUtil.offsetToMinSec(props.matchCreatedAt, log.timestamp)}</td>
             <td>{log.attacker.name}</td>
-            <td>{log.damageReason.kor}</td>
+            <td>{log.damageCauserName.eng === 'None' ? log.damageTypeCategory.kor : log.damageReason.kor}</td>
             <td>{log.damageCauserName.kor}</td>
             {
                 log.damage === 0 ?

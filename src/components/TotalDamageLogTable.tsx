@@ -18,7 +18,7 @@ function TotalDamageLogTable(props: TotalDamageLogTableProps) {
         return (<tr key={log.timestamp}>
             <td>{DateTimeUtil.offsetToMinSec(props.matchCreatedAt, log.timestamp)}</td>
             <td>{log.victim.bot ? victim : <Link to={url}>{victim}</Link>}</td>
-            <td>{log.damageReason.kor}</td>
+            <td>{log.damageCauserName.eng === 'None' ? log.damageTypeCategory.kor : log.damageReason.kor}</td>
             <td>{log.damageCauserName.kor}</td>
             {
                 log.damage === 0 ?
